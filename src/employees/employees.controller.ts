@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import {
   CreateEmployeeDto,
   EmployeesService,
+  Role,
   UpdateEmployeeDto,
 } from './employees.service';
 
@@ -18,13 +20,13 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeesService.create(createEmployeeDto);
+  create(@Body() newEmployee: CreateEmployeeDto) {
+    return this.employeesService.create(newEmployee);
   }
 
   @Get()
-  findAll() {
-    return this.employeesService.findAll();
+  findAll(@Query('role') role?: Role) {
+    return this.employeesService.findAll(role);
   }
 
   @Get(':id')

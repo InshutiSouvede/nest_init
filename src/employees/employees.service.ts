@@ -3,19 +3,25 @@ export interface CreateEmployeeDto {
   id: number;
   name: string;
   email: string;
-  role: 'INTERN' | 'FREELANCER' | 'FULLTIME' | 'PARTTIME';
+  role: Role;
 }
 export interface UpdateEmployeeDto {
   name?: string;
   email?: string;
-  role?: 'INTERN' | 'FREELANCER' | 'FULLTIME' | 'PARTTIME';
+  role?: Role;
+}
+export enum Role {
+  INTERN = 'INTERN',
+  FREELANCER = 'FREELANCER',
+  FULLTIME = 'FULLTIME',
+  PARTTIME = 'PARTTIME',
 }
 const employees: CreateEmployeeDto[] = [
   {
     id: 1,
     name: 'John Doe',
     email: 'pF0lO@example.com',
-    role: 'FREELANCER',
+    role: Role.FREELANCER,
   },
 ];
 
@@ -31,7 +37,10 @@ export class EmployeesService {
     return newEmployee;
   }
 
-  findAll() {
+  findAll(role?: Role) {
+    if (role) {
+      return employees.filter((employee) => employee.role === role);
+    }
     return employees;
   }
 
