@@ -7,14 +7,18 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { EmployeesService } from './employees.service';
+import {
+  CreateEmployeeDto,
+  EmployeesService,
+  UpdateEmployeeDto,
+} from './employees.service';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body() createEmployeeDto: object) {
+  create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeesService.create(createEmployeeDto);
   }
 
@@ -29,7 +33,10 @@ export class EmployeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmployeeDto: object) {
+  update(
+    @Param('id') id: string,
+    @Body() updateEmployeeDto: UpdateEmployeeDto,
+  ) {
     return this.employeesService.update(+id, updateEmployeeDto);
   }
 
