@@ -1,18 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-export interface CreateEmployeeDto {
-  id: number;
-  name: string;
-  email: string;
-  role: Role;
-}
-export interface UpdateEmployeeDto {
-  name?: string;
-  email?: string;
-  role?: Role;
-}
+import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { UpdateEmployeeDto } from './dto/update-employee.dto';
+
 export enum Role {
   INTERN = 'INTERN',
-  FREELANCER = 'FREELANCER',
   FULLTIME = 'FULLTIME',
   PARTTIME = 'PARTTIME',
 }
@@ -21,7 +12,7 @@ const employees: CreateEmployeeDto[] = [
     id: 1,
     name: 'John Doe',
     email: 'pF0lO@example.com',
-    role: Role.FREELANCER,
+    role: Role.FULLTIME,
   },
 ];
 

@@ -8,20 +8,18 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  ValidationPipe,
 } from '@nestjs/common';
-import {
-  CreateEmployeeDto,
-  EmployeesService,
-  Role,
-  UpdateEmployeeDto,
-} from './employees.service';
+import { EmployeesService, Role } from './employees.service';
+import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body() newEmployee: CreateEmployeeDto) {
+  create(@Body(ValidationPipe) newEmployee: CreateEmployeeDto) {
     return this.employeesService.create(newEmployee);
   }
 
@@ -38,7 +36,7 @@ export class EmployeesController {
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateEmployeeDto: UpdateEmployeeDto,
+    @Body(ValidationPipe) updateEmployeeDto: UpdateEmployeeDto,
   ) {
     return this.employeesService.update(+id, updateEmployeeDto);
   }
