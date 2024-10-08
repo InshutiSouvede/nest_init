@@ -1,0 +1,18 @@
+10/8/24, 9:50 AM	RouterExplorer	Mapped {/, GET} route
+10/8/24, 9:50 AM	RoutesResolver	EmployeesController {/employees}:
+10/8/24, 9:50 AM	RouterExplorer	Mapped {/employees, POST} route
+10/8/24, 9:50 AM	RouterExplorer	Mapped {/employees, GET} route
+10/8/24, 9:50 AM	RouterExplorer	Mapped {/employees/:id, GET} route
+10/8/24, 9:50 AM	RouterExplorer	Mapped {/employees/:id, PATCH} route
+10/8/24, 9:50 AM	RouterExplorer	Mapped {/employees/:id, DELETE} route
+10/8/24, 9:50 AM	RoutesResolver	AppController {/}:
+10/8/24, 9:50 AM	NestApplication	Nest application successfully started
+10/8/24, 9:51 AM	RoutesResolver	AppController {/}:
+10/8/24, 9:51 AM	RouterExplorer	Mapped {/, GET} route
+10/8/24, 9:51 AM	RoutesResolver	EmployeesController {/employees}:
+10/8/24, 9:51 AM	RouterExplorer	Mapped {/employees, POST} route
+10/8/24, 9:51 AM	RouterExplorer	Mapped {/employees, GET} route
+10/8/24, 9:51 AM	RouterExplorer	Mapped {/employees/:id, GET} route
+10/8/24, 9:51 AM	RouterExplorer	Mapped {/employees/:id, PATCH} route
+10/8/24, 9:51 AM	RouterExplorer	Mapped {/employees/:id, DELETE} route
+10/8/24, 9:51 AM	NestApplication	Nest application successfully started
