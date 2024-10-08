@@ -1,74 +1,41 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { v4 as uuidv4 } from 'uuid';
+import { Prisma } from '@prisma/client';
+import { DatabaseService } from 'src/database/database.service';
 export enum Role {
   INTERN = 'INTERN',
   FULLTIME = 'FULLTIME',
   PARTTIME = 'PARTTIME',
 }
-const employees: CreateEmployeeDto[] = [
-  {
-    id: uuidv4(),
-    name: 'John Doe',
-    email: 'doexample.com',
-    age: 20,
-    role: Role.FULLTIME,
-  },
-  {
-    id: uuidv4(),
-    name: 'James',
-    email: 'james@example.com',
-    age: 20,
-    role: Role.PARTTIME,
-  },
-  {
-    id: uuidv4(),
-    name: 'Amos',
-    email: 'Amos@example.com',
-    age: 20,
-    role: Role.INTERN,
-  },
-  {
-    id: uuidv4(),
-    name: 'Dan',
-    email: 'dan@example.com',
-    age: 20,
-    role: Role.FULLTIME,
-  },
-];
 
 @Injectable()
 export class EmployeesService {
-  create(employee: CreateEmployeeDto) {
-    const newEmployee = {
-      id: uuidv4(),
-      ...employee,
-    };
-    employees.push(newEmployee);
+  constructor(private readonly databaseServive: DatabaseService) {}
+  async create(employee: Prisma.EmployeeCreateInput) {
+    const newEmployee = await this.databaseServive.employee.create({
+      data: employee,
+    });
     return newEmployee;
   }
 
-  findAll(role?: Role) {
+  async findAll(role?: Role) {
     if (role) {
-      return employees.filter((employee) => employee.role === role);
+      return await this.databaseServive.employee.findMany({ where: { role } });
     }
-    return employees;
+    return await this.databaseServive.employee.findMany();
   }
 
-  findOne(id: string) {
-    const employee = employees.find((employee) => employee.id === id);
+  async findOne(id: string) {
+    const employee = await this.databaseServive.employee.findUnique({
+      where: { id },
+    });
     if (employee) return employee;
     throw new NotFoundException('Employee not found');
   }
 
-  update(id: string, newInfomation: UpdateEmployeeDto) {
-    let updatedEmployee: CreateEmployeeDto | null = null;
-    employees.forEach((employee, index) => {
-      if (employee.id == id) {
-        updatedEmployee = { ...employee, ...newInfomation };
-        employees.splice(index, 1, updatedEmployee);
-      }
+  async update(id: string, newInfomation: Prisma.EmployeeUpdateInput) {
+    const updatedEmployee = await this.databaseServive.employee.update({
+      where: { id },
+      data: newInfomation,
     });
     if (updatedEmployee) {
       return updatedEmployee;
@@ -76,9 +43,7 @@ export class EmployeesService {
     throw new NotFoundException('Employee not found');
   }
 
-  remove(id: string) {
-    const employeeIndex = employees.findIndex((employee) => employee.id === id);
-    if (employeeIndex !== -1) return employees.splice(employeeIndex, 1);
-    throw new NotFoundException('Employee not found');
+  async remove(id: string) {
+    return await this.databaseServive.employee.delete({ where: { id } });
   }
 }

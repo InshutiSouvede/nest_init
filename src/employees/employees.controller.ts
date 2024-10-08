@@ -10,15 +10,14 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { EmployeesService, Role } from './employees.service';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { Prisma } from '@prisma/client';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body(ValidationPipe) newEmployee: CreateEmployeeDto) {
+  create(@Body(ValidationPipe) newEmployee: Prisma.EmployeeCreateInput) {
     return this.employeesService.create(newEmployee);
   }
 
@@ -35,7 +34,7 @@ export class EmployeesController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body(ValidationPipe) updateEmployeeDto: UpdateEmployeeDto,
+    @Body(ValidationPipe) updateEmployeeDto: Prisma.EmployeeUpdateInput,
   ) {
     return this.employeesService.update(id, updateEmployeeDto);
   }
