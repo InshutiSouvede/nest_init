@@ -12,16 +12,19 @@ export class CreateEmployeeDto {
   id?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Name must not be empty' })
   name: string;
 
   @IsEmail()
   email: string;
 
   @IsNumber()
-  @IsPositive()
+  @IsPositive({ message: 'Age must be a positive number' })
   age: number;
 
-  @IsEnum(['INTERN', 'FULLTIME', 'PARTTIME'])
+  @IsEnum(['INTERN', 'FULLTIME', 'PARTTIME'], {
+    message:
+      "role must be one of the following values:'INTERN', 'FULLTIME', 'PARTTIME'",
+  })
   role: Role;
 }
