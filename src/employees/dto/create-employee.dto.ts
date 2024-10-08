@@ -9,9 +9,7 @@ import {
 import { Role } from '../employees.service';
 
 export class CreateEmployeeDto {
-  @IsNumber()
-  @IsPositive()
-  id: number;
+  id?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -19,6 +17,10 @@ export class CreateEmployeeDto {
 
   @IsEmail()
   email: string;
+
+  @IsNumber()
+  @IsPositive()
+  age: number;
 
   @IsEnum(['INTERN', 'FULLTIME', 'PARTTIME'])
   role: Role;

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-
+import { v4 as uuidv4 } from 'uuid';
 export enum Role {
   INTERN = 'INTERN',
   FULLTIME = 'FULLTIME',
@@ -9,21 +9,42 @@ export enum Role {
 }
 const employees: CreateEmployeeDto[] = [
   {
-    id: 1,
+    id: uuidv4(),
     name: 'John Doe',
-    email: 'pF0lO@example.com',
+    email: 'doexample.com',
+    age: 20,
+    role: Role.FULLTIME,
+  },
+  {
+    id: uuidv4(),
+    name: 'James',
+    email: 'james@example.com',
+    age: 20,
+    role: Role.PARTTIME,
+  },
+  {
+    id: uuidv4(),
+    name: 'Amos',
+    email: 'Amos@example.com',
+    age: 20,
+    role: Role.INTERN,
+  },
+  {
+    id: uuidv4(),
+    name: 'Dan',
+    email: 'dan@example.com',
+    age: 20,
     role: Role.FULLTIME,
   },
 ];
 
 @Injectable()
 export class EmployeesService {
-  create(createEmployeeDto: CreateEmployeeDto) {
+  create(employee: CreateEmployeeDto) {
     const newEmployee = {
-      id: employees.length + 1,
-      ...createEmployeeDto,
+      id: uuidv4(),
+      ...employee,
     };
-
     employees.push(newEmployee);
     return newEmployee;
   }
@@ -35,13 +56,13 @@ export class EmployeesService {
     return employees;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     const employee = employees.find((employee) => employee.id === id);
     if (employee) return employee;
     throw new NotFoundException('Employee not found');
   }
 
-  update(id: number, newInfomation: UpdateEmployeeDto) {
+  update(id: string, newInfomation: UpdateEmployeeDto) {
     let updatedEmployee: CreateEmployeeDto | null = null;
     employees.forEach((employee, index) => {
       if (employee.id == id) {
@@ -55,7 +76,7 @@ export class EmployeesService {
     throw new NotFoundException('Employee not found');
   }
 
-  remove(id: number) {
+  remove(id: string) {
     const employeeIndex = employees.findIndex((employee) => employee.id === id);
     if (employeeIndex !== -1) return employees.splice(employeeIndex, 1);
     throw new NotFoundException('Employee not found');
