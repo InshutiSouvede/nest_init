@@ -8,9 +8,11 @@ import {
   Delete,
   Query,
   ValidationPipe,
+  Ip,
 } from '@nestjs/common';
 import { EmployeesService, Role } from './employees.service';
 import { Prisma } from '@prisma/client';
+// import { log } from 'console';
 
 @Controller('employees')
 export class EmployeesController {
@@ -22,7 +24,8 @@ export class EmployeesController {
   }
 
   @Get()
-  findAll(@Query('role') role?: Role) {
+  findAll(@Ip() ip: string, @Query('role') role?: Role) {
+    console.log(`Request for ALL employees from \t${ip}`);
     return this.employeesService.findAll(role);
   }
 

@@ -16,3 +16,27 @@
 10/8/24, 9:51 AM	RouterExplorer	Mapped {/employees/:id, PATCH} route
 10/8/24, 9:51 AM	RouterExplorer	Mapped {/employees/:id, DELETE} route
 10/8/24, 9:51 AM	NestApplication	Nest application successfully started
+10/8/24, 10:40 AM	AllExeptionsFilter	 Invalid `this.databaseServive.employee.create()` invocation in /home/souvede/Documents/THEGYM/nest-js/my-ms/src/employees/employees.service.ts:14:61    11 export class EmployeesService {   12   constructor(private readonly databaseServive: DatabaseService) {}   13   async create(employee: Prisma.EmployeeCreateInput) { → 14     const newEmployee = await this.databaseServive.employee.create({            data: {              age: 23,              role: "FULLTIME",              name: "hhdfss",          +   email: String            }          })  Argument `email` is missing.
+10/8/24, 10:42 AM	AllExeptionsFilter	 Invalid `this.databaseServive.employee.create()` invocation in /home/souvede/Documents/THEGYM/nest-js/my-ms/src/employees/employees.service.ts:14:61    11 export class EmployeesService {   12   constructor(private readonly databaseServive: DatabaseService) {}   13   async create(employee: Prisma.EmployeeCreateInput) { → 14     const newEmployee = await this.databaseServive.employee.create({            data: {              age: 23,              role: "FULLTIMER",              name: "hhdfss",          +   email: String            }          })  Argument `email` is missing.
+10/8/24, 10:43 AM	AllExeptionsFilter	[object Object]
+10/8/24, 10:43 AM	AllExeptionsFilter	[object Object]
+10/8/24, 10:43 AM	AllExeptionsFilter	 Invalid `this.databaseServive.employee.create()` invocation in /home/souvede/Documents/THEGYM/nest-js/my-ms/src/employees/employees.service.ts:14:61    11 export class EmployeesService {   12   constructor(private readonly databaseServive: DatabaseService) {}   13   async create(employee: Prisma.EmployeeCreateInput) { → 14     const newEmployee = await this.databaseServive.employee.create({            data: {              age: 23,              role: "FULLTIMER",                    ~~~~~~~~~~~              name: "hhdfss",              email: "dgfsdf"            }          })  Invalid value for argument `role`. Expected Role.
+10/8/24, 10:49 AM	AllExeptionsFilter	
+Invalid `this.databaseServive.employee.create()` invocation in
+/home/souvede/Documents/THEGYM/nest-js/my-ms/src/employees/employees.service.ts:14:61
+
+  11 export class EmployeesService {
+  12   constructor(private readonly databaseServive: DatabaseService) {}
+  13   async create(employee: Prisma.EmployeeCreateInput) {
+→ 14     const newEmployee = await this.databaseServive.employee.create({
+           data: {
+             age: 23,
+             role: "FULLTIMER",
+                   ~~~~~~~~~~~
+             name: "hhdfss",
+             email: "dgfsdf"
+           }
+         })
+
+Invalid value for argument `role`. Expected Role.
+10/8/24, 10:50 AM	AllExeptionsFilter	Internal Server Error
